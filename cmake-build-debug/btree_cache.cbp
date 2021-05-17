@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Tomek/CLionProjects/btree_cache/BTree.cpp">
+			<Option target="btree_cache"/>
+		</Unit>
+		<Unit filename="C:/Users/Tomek/CLionProjects/btree_cache/BTree.h">
+			<Option target="btree_cache"/>
+		</Unit>
 		<Unit filename="C:/Users/Tomek/CLionProjects/btree_cache/Node.cpp">
 			<Option target="btree_cache"/>
 		</Unit>

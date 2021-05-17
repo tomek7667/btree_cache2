@@ -7,24 +7,22 @@ using namespace std;
 
 int main() {
     char choice[COMMAND_SIZE];
-    int val, ch, MIN, MAX;
-    int order = 2;
-    Node* root = nullptr;
+    int val;
+    int order;
+    Node root;
     while (cin >> choice) {
-        MIN = order - 1;
-        MAX = (2 * order) - 1;
-        //cout << "MIN: " << MIN << endl << "MAX: " << MAX << endl;
         if (!strcmp(choice, "I")) {
             cin >> order;
             // create tree of order
+            root = Node(order, nullptr);
         } else if (!strcmp(choice, "A")) {
             cin >> val;
+
             //insert(val, &root, MIN, MAX);
         } else if (!strcmp(choice, "?")) {
             cin >> val;
             bool found = false;
             //search(val, &ch, root, &found);
-
             if (!found) cout << val << " -\n";
         } else if (!strcmp(choice, "P")) {
             //revSwitch(root);
