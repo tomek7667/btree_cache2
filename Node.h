@@ -13,13 +13,14 @@ public:
     Node ** sons;
     int * keys;
     int currentKeys = 0, order;
-    Node(int order, Node* root, bool leaf);
+    Node(int order, bool leaf);
     Node();
     void healthCheck() const;
-    bool isRoot() const;
     void insert_nfull(int val);
     void split(int i, Node *node);
-    void traverse();
+    void traverse() const;
+    int maximum_items() const;
+    int minimum_items() const;
 };
 
 
