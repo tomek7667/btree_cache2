@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Node.h"
+#include "BTree.h"
 #include <cstring>
 #define COMMAND_SIZE 1
 using namespace std;
@@ -9,12 +10,12 @@ int main() {
     char choice[COMMAND_SIZE];
     int val;
     int order;
-    Node root;
+    BTree t = nullptr;
     while (cin >> choice) {
         if (!strcmp(choice, "I")) {
             cin >> order;
             // create tree of order
-            root = Node(order, nullptr);
+            root =
         } else if (!strcmp(choice, "A")) {
             cin >> val;
 

@@ -9,6 +9,10 @@ BTree::BTree(int t) {
     this->root = nullptr;
 }
 
+BTree::BTree() {
+    this->root = nullptr;
+}
+
 void BTree::traverse() {
     if (this->root != nullptr) this->root->traverse();
 }
