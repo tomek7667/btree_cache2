@@ -20,7 +20,8 @@ int main() {
             tree.insert(val);
         } else if (!strcmp(choice, "?")) {
             cin >> val;
-            tree.search(val) ? cout << "+\n" : cout << "-\n";
+            cout << val;
+            tree.search(val) ? cout << " +\n" : cout << " -\n";
         } else if (!strcmp(choice, "P")) {
             tree.traverse();
             cout << endl;
