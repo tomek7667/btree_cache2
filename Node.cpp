@@ -37,7 +37,6 @@ void Node::insert_nfull(int val) {
         }
         this->keys[i + 1] = val;
         this->currentKeys++;
-        //std::cout << "halo\n";
     } else { // when the node is not a leaf
         while (this->keys[i] > val && i >= 0) i--;
         if (this->sons[i + 1]->currentKeys == this->maximum_items()) {

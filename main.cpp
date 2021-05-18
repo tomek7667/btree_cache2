@@ -36,7 +36,7 @@ int main() {
         } else if (!strcmp(choice, "#")) {
             ;;
         } else if (!strcmp(choice, "X")) {
-            while (tree.root != nullptr) tree.remove(tree.root->keys[0]);
+            while (tree.root != nullptr) tree.remove(tree.root->keys[tree.root->currentKeys-1]);
             return 1;
         } else if (!strcmp(choice, "C")) {
             // TODO

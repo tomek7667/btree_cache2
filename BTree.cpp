@@ -3,6 +3,7 @@
 //
 
 #include "BTree.h"
+#include <iostream>
 
 BTree::BTree(int order) {
     this->order = order;
