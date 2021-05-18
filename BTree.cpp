@@ -4,8 +4,8 @@
 
 #include "BTree.h"
 
-BTree::BTree(int t) {
-    this->order = t;
+BTree::BTree(int order) {
+    this->order = order;
     this->root = nullptr;
 }
 
