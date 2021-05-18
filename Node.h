@@ -21,7 +21,19 @@ public:
     int maximum_items() const;
     int minimum_items() const;
     bool search(int val);
-    ~Node();
+    // ~Node();
+    // remove functions
+    int get_key(int val) const;
+    void remove(int val);
+    void remove_leaf(int index);
+    void remove_nonleaf(int index);
+    void merge(int index);
+    int getPredecessor(int index) const;
+    int getSuccessor(int index);
+    void fill(int index);
+    void borrow_prev(int index);
+
+    void borrow_next(int index);
 };
 
 

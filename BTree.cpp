@@ -13,7 +13,7 @@ BTree::BTree() {
     this->root = nullptr;
 }
 
-void BTree::traverse() {
+void BTree::traverse() const {
     if (this->root != nullptr) this->root->traverse();
 }
 
@@ -40,4 +40,15 @@ void BTree::insert(int val) {
 
 bool BTree::search(int val) {
     return root != nullptr && root->search(val);
+}
+
+void BTree::remove(int val) {
+    if (this->root == nullptr) return;
+    this->root->remove(val);
+    if (root->currentKeys == 0) {
+        Node *temp = this->root;
+        if (root->leaf) this->root = nullptr;
+        else this->root = this->root->sons[0];
+        delete temp;
+    }
 }

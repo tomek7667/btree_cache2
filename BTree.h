@@ -12,8 +12,9 @@ public:
     int order;
     BTree(int order);
     BTree();
-    void traverse();
+    void traverse() const;
     void insert(int val);
+    void remove(int val);
     bool search(int val);
 };
 

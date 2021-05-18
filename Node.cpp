@@ -97,10 +97,133 @@ bool Node::search(int val) {
     return this->sons[i]->search(val);
 }
 
-Node::~Node() {
+int Node::get_key(int val) const {
+    int i = 0;
+    while (i < this->currentKeys && this->keys[i] < val) i++;
+    return i;
+}
+
+
+void Node::remove(int val) {
+    int index = this->get_key(val);
+    if (index < this->currentKeys && this->keys[index] == val) {
+        if (this->leaf) this->remove_leaf(index);
+        else this->remove_nonleaf(index);
+    } else {
+        if (this->leaf) {
+            std::cout << "[ERROR] Wrong input! The value does not exist in Tree!\n";
+            return;
+        }
+        bool index_was_equal = index == this->currentKeys;
+        if (this->sons[index]->currentKeys < this->order) this->fill(index);
+        if (index_was_equal && index > this->currentKeys) this->sons[index - 1]->remove(val);
+        else this->sons[index]->remove(val);
+    }
+}
+
+void Node::remove_leaf(int index) {
+    // shift values to the left from keys
+    for (int id = index + 1; id < this->currentKeys; id++) this->keys[id - 1] = this->keys[id];
+    this->currentKeys--;
+}
+
+void Node::remove_nonleaf(int index) {
+    int k = this->keys[index];
+    if (this->sons[index]->currentKeys >= this->order) {
+        int predecessor_key = getPredecessor(index);
+        this->keys[index] = predecessor_key;
+        this->sons[index]->remove(predecessor_key);
+    } else if (this->sons[index + 1]->currentKeys >= this->order) {
+        int successor_key = getSuccessor(index);
+        this->keys[index] = successor_key;
+        this->sons[index + 1]->remove(successor_key);
+    } else {
+        this->merge(index);
+        this->sons[index]->remove(k);
+    }
+}
+
+void Node::merge(int index) {
+    Node *son = this->sons[index];
+    Node *neighbour = this->sons[index + 1];
+    son->keys[minimum_items()] = this->keys[index];
+    // transfer keys and sons
+    for (int i = 0; i < neighbour->currentKeys; i++)
+        son->keys[this->order + i] = neighbour->keys[i];
+    if (!neighbour->leaf)
+        for (int i = 0; i <= neighbour->currentKeys; i++)
+            son->sons[this->order + i] = neighbour->sons[i];
+    // shift the keys and sons
+    for (int i = index + 1; i < this->currentKeys; i++) this->keys[i - 1] = this->keys[i];
+    for (int i = index + 2; i <= this->currentKeys; i++) this->sons[i - 1] = this->sons[i];
+    son->currentKeys = neighbour->currentKeys + 1;
+    this->currentKeys--;
+    delete neighbour;
+}
+
+int Node::getPredecessor(int index) const {
+    Node * temp = this->sons[index];
+    while (!temp->leaf) temp = temp->sons[temp->currentKeys];
+    return temp->keys[temp->currentKeys - 1];
+}
+
+int Node::getSuccessor(int index) {
+    Node * temp = this->sons[index + 1];
+    while (!temp->leaf) temp = temp->sons[0];
+    return temp->keys[0];
+}
+
+void Node::fill(int index) {
+    if (index != 0 && this->sons[index - 1]->currentKeys >= this->order) this->borrow_prev(index);
+    else if (index != this->currentKeys && this->sons[index + 1]->currentKeys >= this->order) this->borrow_next(index);
+    else {
+        if (index != this->currentKeys) this->merge(index);
+        else this->merge(index - 1);
+    }
+}
+
+void Node::borrow_prev(int index) {
+    Node * son = this->sons[index];
+    Node * neighbour = this->sons[index - 1];
+    // shift keys and if not leaf - children of son
+    for (int i = son->currentKeys - 1; i >= 0; i--)
+        son->keys[i + 1] = son->keys[i];
+    if (!son->leaf)
+        for (int i = son->currentKeys; i >= 0; i--)
+            son->sons[i + 1] = son->sons[i];
+
+    son->keys[0] = this->keys[index - 1];
+    if (!son->leaf)
+        son->sons[0] = neighbour->sons[neighbour->currentKeys];
+    this->keys[index - 1] = neighbour->keys[neighbour->currentKeys - 1];
+    son->currentKeys++;
+    neighbour->currentKeys--;
+}
+
+void Node::borrow_next(int index) {
+    Node * son = this->sons[index];
+    Node * neighbour = this->sons[index + 1];
+    son->keys[son->currentKeys] = this->keys[index];
+    if (!son->leaf)
+        son->sons[son->currentKeys + 1] = neighbour->sons[0];
+    this->keys[index] = neighbour->keys[0];
+    // shift neighbour to the left (keys and sons ofc)
+    for (int i = 1; i < neighbour->currentKeys; i++)
+        neighbour->keys[i - 1] = neighbour->keys[i];
+    if (!neighbour->leaf)
+        for (int i = 1; i <= neighbour->currentKeys; i++)
+            neighbour->sons[i - 1] = neighbour->sons[i];
+    son->currentKeys++;
+    neighbour->currentKeys--;
+}
+
+
+
+/*Node::~Node() {
     delete this->sons;
     /* STOS somehow won't accept that solution
      * for (int i = 0; i < this->currentKeys - 1; i++) {
         delete this->sons[i];
-    }*/
-}
+    }
+}*/
+

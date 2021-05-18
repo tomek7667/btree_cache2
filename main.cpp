@@ -32,16 +32,17 @@ int main() {
             // TODO
         } else if (!strcmp(choice, "R")) {
             cin >> val;
-            // TODO
+            tree.remove(val);
         } else if (!strcmp(choice, "#")) {
             ;;
         } else if (!strcmp(choice, "X")) {
-            exit(1);
+            while (tree.root != nullptr) tree.remove(tree.root->keys[0]);
+            return 1;
         } else if (!strcmp(choice, "C")) {
             // TODO
         } else {
             cout << "Nie znam komendy : " << choice << endl;
         }
     }
-    return 0;
+    return -1;
 }
