@@ -111,7 +111,6 @@ void Node::remove(int val) {
         else this->remove_nonleaf(index);
     } else {
         if (this->leaf) {
-            std::cout << "[ERROR] Wrong input! The value does not exist in Tree!\n";
             return;
         }
         bool index_was_equal = index == this->currentKeys;
