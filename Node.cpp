@@ -86,9 +86,16 @@ int Node::minimum_items() const {
     return this->order-1;
 }
 
+bool Node::search(int val) {
+    int i = 0;
+    while (i < this->currentKeys && val > this->keys[i]) i++;
+    if (keys[i] == val) return keys[i] == val;
+    if (this->leaf) return false;
+    return this->sons[i]->search(val);
+}
+
 Node::~Node() {
     for (int i = 0; i < this->currentKeys - 1; i++) {
         delete this->sons[i];
     }
 }
-

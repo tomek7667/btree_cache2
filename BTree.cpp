@@ -41,3 +41,7 @@ void BTree::insert(int val) {
 BTree::~BTree() {
     delete this->root;
 }
+
+bool BTree::search(int val) {
+    return root != nullptr && root->search(val);
+}
