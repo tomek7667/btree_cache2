@@ -36,7 +36,7 @@ int main() {
         } else if (!strcmp(choice, "#")) {
             ;;
         } else if (!strcmp(choice, "X")) {
-            return 1;
+            exit(1);
         } else if (!strcmp(choice, "C")) {
             // TODO
         } else {

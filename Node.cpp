@@ -13,17 +13,18 @@ Node::Node(int order, bool leaf) {
 }
 
 void Node::healthCheck() const {
-    if (this->currentKeys < (this->order-1)) {
-        std::cout << "[WARNING] Node contains less than t-1 keys!\n";
-    } else if (this->currentKeys > ((this->order*2)-1)) {
-        std::cout << "[WARNING] Node contains more than 2t-1 keys!\n";
+    if (this->currentKeys < this->minimum_items()) {
+        std::cout << "\nN Keys: " << this->currentKeys;
+        std::cout << "\n[WARNING] Node contains less than t-1 keys!\n";
+    } else if (this->currentKeys > this->maximum_items()) {
+        std::cout << "\nN Keys: " << this->currentKeys;
+        std::cout << "\n[WARNING] Node contains more than 2t-1 keys!\n";
     }
 }
 
 Node::Node() {
     this->sons = nullptr;
     this->keys = nullptr;
-    this->root = nullptr;
 }
 
 void Node::insert_nfull(int val) {
@@ -36,6 +37,7 @@ void Node::insert_nfull(int val) {
         }
         this->keys[i + 1] = val;
         this->currentKeys++;
+        //std::cout << "halo\n";
     } else { // when the node is not a leaf
         while (this->keys[i] > val && i >= 0) i--;
         if (this->sons[i + 1]->currentKeys == this->maximum_items()) {
@@ -73,6 +75,7 @@ void Node::traverse() const {
     int i;
     for (i = 0; i < this->currentKeys; i++) {
         if (!this->leaf) this->sons[i]->traverse();
+        if (this->leaf) this->healthCheck();
         std::cout << this->keys[i] << " ";
     }
     if (!this->leaf) this->sons[i]->traverse();
@@ -95,7 +98,9 @@ bool Node::search(int val) {
 }
 
 Node::~Node() {
-    for (int i = 0; i < this->currentKeys - 1; i++) {
+    delete this->sons;
+    /* STOS somehow won't accept that solution
+     * for (int i = 0; i < this->currentKeys - 1; i++) {
         delete this->sons[i];
-    }
+    }*/
 }

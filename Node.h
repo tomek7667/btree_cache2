@@ -9,7 +9,6 @@
 class Node {
 public:
     bool leaf = false;
-    Node * root;
     Node ** sons;
     int * keys;
     int currentKeys = 0, order;

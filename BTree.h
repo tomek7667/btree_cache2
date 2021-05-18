@@ -15,7 +15,6 @@ public:
     void traverse();
     void insert(int val);
     bool search(int val);
-    ~BTree();
 };
 
 
