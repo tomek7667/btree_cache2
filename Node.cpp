@@ -92,10 +92,26 @@ int Node::minimum_items() const {
 bool Node::search(int val) {
     int i = 0;
     while (i < this->currentKeys && val > this->keys[i]) i++;
-    if (keys[i] == val) return keys[i] == val;
+    if (this->keys[i] == val) return true;
     if (this->leaf) return false;
     return this->sons[i]->search(val);
 }
+
+/*
+  TreeNode *TreeNode::search(int k) {
+  int i = 0;
+  while (i < n && k > keys[i])
+    i++;
+
+  if (keys[i] == k)
+    return this;
+
+  if (leaf == true)
+    return NULL;
+
+  return C[i]->search(k);
+}
+ */
 
 int Node::get_key(int val) const {
     int i = 0;
