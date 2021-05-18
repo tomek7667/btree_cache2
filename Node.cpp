@@ -113,7 +113,7 @@ void Node::remove(int val) {
         if (this->leaf) {
             return;
         }
-        bool index_was_equal = index == this->currentKeys;
+        bool index_was_equal = (index == this->currentKeys);
         if (this->sons[index]->currentKeys < this->order) this->fill(index);
         if (index_was_equal && index > this->currentKeys) this->sons[index - 1]->remove(val);
         else this->sons[index]->remove(val);
@@ -122,7 +122,7 @@ void Node::remove(int val) {
 
 void Node::remove_leaf(int index) {
     // shift values to the left from keys
-    for (int id = index + 1; id < this->currentKeys; id++) this->keys[id - 1] = this->keys[id];
+    for (int i = index + 1; i < this->currentKeys; i++) this->keys[i - 1] = this->keys[i];
     this->currentKeys--;
 }
 
@@ -145,17 +145,17 @@ void Node::remove_nonleaf(int index) {
 void Node::merge(int index) {
     Node *son = this->sons[index];
     Node *neighbour = this->sons[index + 1];
-    son->keys[minimum_items()] = this->keys[index];
+    son->keys[this->minimum_items()] = this->keys[index];
     // transfer keys and sons
     for (int i = 0; i < neighbour->currentKeys; i++)
         son->keys[this->order + i] = neighbour->keys[i];
-    if (!neighbour->leaf)
+    if (!son->leaf)
         for (int i = 0; i <= neighbour->currentKeys; i++)
             son->sons[this->order + i] = neighbour->sons[i];
     // shift the keys and sons
     for (int i = index + 1; i < this->currentKeys; i++) this->keys[i - 1] = this->keys[i];
     for (int i = index + 2; i <= this->currentKeys; i++) this->sons[i - 1] = this->sons[i];
-    son->currentKeys = neighbour->currentKeys + 1;
+    son->currentKeys += neighbour->currentKeys + 1;
     this->currentKeys--;
     delete neighbour;
 }

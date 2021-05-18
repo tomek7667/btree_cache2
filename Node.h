@@ -21,7 +21,6 @@ public:
     int maximum_items() const;
     int minimum_items() const;
     bool search(int val);
-    // ~Node();
     // remove functions
     int get_key(int val) const;
     void remove(int val);
