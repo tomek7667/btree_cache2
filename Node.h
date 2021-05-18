@@ -21,6 +21,7 @@ public:
     void traverse() const;
     int maximum_items() const;
     int minimum_items() const;
+    ~Node();
 };
 
 

@@ -37,3 +37,7 @@ void BTree::insert(int val) {
         }
     }
 }
+
+BTree::~BTree() {
+    delete this->root;
+}

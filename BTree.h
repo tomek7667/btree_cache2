@@ -14,6 +14,7 @@ public:
     BTree();
     void traverse();
     void insert(int val);
+    ~BTree();
 };
 
 

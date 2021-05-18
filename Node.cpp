@@ -67,9 +67,6 @@ void Node::split(int i, Node *node) {
         this->keys[k + 1] = this->keys[k];
     this->keys[i] = node->keys[minimum_items()];
     this->currentKeys++;
-
-
-
 }
 
 void Node::traverse() const {
@@ -87,5 +84,11 @@ int Node::maximum_items() const {
 
 int Node::minimum_items() const {
     return this->order-1;
+}
+
+Node::~Node() {
+    for (int i = 0; i < this->currentKeys - 1; i++) {
+        delete this->sons[i];
+    }
 }
 

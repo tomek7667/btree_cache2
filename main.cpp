@@ -10,26 +10,22 @@ int main() {
     char choice[COMMAND_SIZE];
     int val;
     int order;
-    BTree t = nullptr;
+    BTree tree;
     while (cin >> choice) {
         if (!strcmp(choice, "I")) {
             cin >> order;
-            // create tree of order
-            root =
+            tree = BTree(order);
         } else if (!strcmp(choice, "A")) {
             cin >> val;
-
-            //insert(val, &root, MIN, MAX);
+            tree.insert(val);
         } else if (!strcmp(choice, "?")) {
             cin >> val;
-            bool found = false;
-            //search(val, &ch, root, &found);
-            if (!found) cout << val << " -\n";
         } else if (!strcmp(choice, "P")) {
-            //revSwitch(root);
+            tree.traverse();
             cout << endl;
         } else if (!strcmp(choice, "L")) {
             cin >> order;
+            tree = BTree(order);
         } else if (!strcmp(choice, "S")) {
             // TODO
         } else if (!strcmp(choice, "R")) {
@@ -38,7 +34,7 @@ int main() {
         } else if (!strcmp(choice, "#")) {
             ;;
         } else if (!strcmp(choice, "X")) {
-            exit(1);
+            return 1;
         } else if (!strcmp(choice, "C")) {
             // TODO
         } else {
